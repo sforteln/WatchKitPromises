@@ -15,4 +15,6 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '2.0'
   s.requires_arc = true
   s.source_files = 'Source/**/*'
+  s.frameworks       = 'WatchKit'
+  s.dependency 'PromiseKit','4.2.2'
 end
