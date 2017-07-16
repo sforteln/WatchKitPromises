@@ -9,60 +9,76 @@
 import WatchKit
 import PromiseKit
 
-
 extension WKInterfaceController {
-    func animate(duration:TimeInterval, animations: @escaping () -> Void) -> Promise<Bool> {
+    public func animate(duration: TimeInterval, animations: @escaping () -> Void) -> Promise<Void> {
         return Promise { fulfill, reject in
-            self.animateWithCompletion(duration: duration, animations: animations, completion:{ fulfill(true) })
+            self.animateWithCompletion(duration: duration, animations: animations, completion: { fulfill() })
         }
     }
     
-    func hide(duration:TimeInterval, interfaceObject: WKInterfaceObject) -> Promise<Bool> {
+    public func hide(duration: TimeInterval, interfaceObject: WKInterfaceObject) -> Promise<Void> {
         return self.hide(duration: duration, interfaceObjects: [interfaceObject])
     }
     
-    func hide(duration:TimeInterval, interfaceObjects: [WKInterfaceObject]) -> Promise<Bool> {
+    public func hide(duration: TimeInterval, interfaceObjects: [WKInterfaceObject]) -> Promise<Void> {
         return Promise { fulfill, reject in
-            self.animateWithCompletion(duration: duration,
-                                       animations: {
+            self.animateWithCompletion(duration: duration, animations: {
                                             interfaceObjects.forEach { $0.setAlpha(0) }
-                                        },
-                                       completion:{
+                                        }, completion:{
                                             interfaceObjects.forEach { $0.setHidden(true) }
-                                            fulfill(true)
+                                            fulfill()
                                         })
         }
     }
     
-    func show(duration:TimeInterval, interfaceObject: WKInterfaceObject) -> Promise<Bool> {
+    public func show(duration: TimeInterval, interfaceObject: WKInterfaceObject) -> Promise<Void> {
         return self.show(duration: duration, interfaceObjects: [interfaceObject])
     }
     
-    func show(duration:TimeInterval, interfaceObjects: [WKInterfaceObject]) -> Promise<Bool> {
+    public func show(duration: TimeInterval, interfaceObjects: [WKInterfaceObject]) -> Promise<Void> {
         return Promise { fulfill, reject in
             interfaceObjects.forEach { $0.setHidden(false) }
-            self.animateWithCompletion(duration: duration,
-                                       animations: {
-                                        interfaceObjects.forEach { $0.setAlpha(1) }
-                                        },
-                                       completion:{
-                                        fulfill(true)
+            self.animateWithCompletion(duration: duration, animations: {
+                                            interfaceObjects.forEach { $0.setAlpha(1) }
+                                        }, completion:{
+                                            fulfill()
                                         })
         }
     }
     
     fileprivate func animateWithCompletion(duration: TimeInterval, animations: @escaping () -> Void, completion: @escaping () -> Void) {
         self.animate(withDuration: duration, animations: animations)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration, execute: {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
             completion()
-        })
+        }
     }
 }
 
 extension Promise {
-    func animate(in vc: WKInterfaceController, duration:TimeInterval, animations: @escaping () -> Void) -> Promise<Bool> {
+    public func animate(in vc: WKInterfaceController, duration: TimeInterval, animations: @escaping () -> Void) -> Promise<Void> {
         return vc.animate(duration: duration, animations: animations)
     }
     
+    public func hide(in vc: WKInterfaceController, duration: TimeInterval, interfaceObject: WKInterfaceObject) -> Promise<Void> {
+        return vc.hide(duration: duration, interfaceObjects: interfaceObject)
+    }
     
+    public func hide(in vc: WKInterfaceController, duration: TimeInterval, interfaceObjects: [WKInterfaceObject]) -> Promise<Void> {
+        return vc.hide(duration: duration, interfaceObjects: [interfaceObject])    }
+    
+    public func show(in vc: WKInterfaceController, duration: TimeInterval, interfaceObject: WKInterfaceObject) -> Promise<Void> {
+        return vc.show(duration: duration, interfaceObjects: [interfaceObject])
+    }
+    
+    public func show(in vc: WKInterfaceController, duration: TimeInterval, interfaceObjects: [WKInterfaceObject]) -> Promise<Void> {
+        return vc.show(duration: duration, interfaceObjects: interfaceObjecs)
+    }
+    
+    public func wait(_ duration:TimeInterval) -> Promise<Void> {
+        return Promise<Void> { fulfill, reject in
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
+                fulfill()
+            }
+        }
+    }
 }
