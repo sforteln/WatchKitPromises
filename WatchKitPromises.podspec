@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name             = "WatchKitPromises"
-  s.version          = "0.1.0"
-  s.summary          = "A library to add PromiseKit Promises to WatchKit."
+  s.version          = "0.2.0"
+  s.summary          = "A library to add PromiseKit support to WatchKit."
   s.description      = <<-DESC
-                       A library to simply zoom in and out a UIView.  It has a default animation similar to UIAlertView and allows for custom anitmation keyframes.
+                       Adds support for WatchKit animations to WatchKit
 
                        DESC
   s.homepage         = "https://github.com/sforteln/WatchKitPromises"

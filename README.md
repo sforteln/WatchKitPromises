@@ -1,7 +1,7 @@
 # WatchKitPromises
 
 
-## PromiseKit extension for WatchKit
+## PromiseKit support for WatchKit
 
 
 ## Installation
