@@ -10,13 +10,35 @@ WatchKitPromises is available through [CocoaPods](http://cocoapods.org). To inst
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "WatchKitPromises"
+target 'XXXX WatchKit Extension' do
+
+  pod 'WatchKitPromises'
+
+end
 ```
 
 ## Usage
 Import
 ```swift
 import WatchKitPromises
+
+override func awake(withContext context: Any?) {
+    super.awake(withContext: context)
+    self.animate(duration: duration, animations: {
+        self.startButton?.setAlpha(0)
+        self.swipeLabel?.setAlpha(0)
+    })
+    .wait(2)
+    .then(execute: {
+        ///API request, etc
+        return
+    })
+    .animate(in: self, duration: 2, animations: {
+        self.startButton?.setAlpha(1)
+        self.swipeLabel?.setAlpha(1)
+
+    })
+}
 ```
 
 
