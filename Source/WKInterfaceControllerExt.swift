@@ -60,18 +60,18 @@ extension Promise {
     }
     
     public func hide(in vc: WKInterfaceController, duration: TimeInterval, interfaceObject: WKInterfaceObject) -> Promise<Void> {
-        return vc.hide(duration: duration, interfaceObjects: interfaceObject)
+        return vc.hide(duration: duration, interfaceObject: interfaceObject)
     }
     
     public func hide(in vc: WKInterfaceController, duration: TimeInterval, interfaceObjects: [WKInterfaceObject]) -> Promise<Void> {
-        return vc.hide(duration: duration, interfaceObjects: [interfaceObject])    }
+        return vc.hide(duration: duration, interfaceObjects: interfaceObjects)    }
     
     public func show(in vc: WKInterfaceController, duration: TimeInterval, interfaceObject: WKInterfaceObject) -> Promise<Void> {
-        return vc.show(duration: duration, interfaceObjects: [interfaceObject])
+        return vc.show(duration: duration, interfaceObject: interfaceObject)
     }
     
     public func show(in vc: WKInterfaceController, duration: TimeInterval, interfaceObjects: [WKInterfaceObject]) -> Promise<Void> {
-        return vc.show(duration: duration, interfaceObjects: interfaceObjecs)
+        return vc.show(duration: duration, interfaceObjects: interfaceObjects)
     }
     
     public func wait(_ duration:TimeInterval) -> Promise<Void> {
