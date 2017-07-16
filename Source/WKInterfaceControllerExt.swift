@@ -54,9 +54,7 @@ extension WKInterfaceController {
     fileprivate func animateWithCompletion(duration: TimeInterval, animations: @escaping () -> Void, completion: @escaping () -> Void) {
         self.animate(withDuration: duration, animations: animations)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration, execute: {
-            if let completion = completion {
-                completion()
-            }
+            completion()
         })
     }
 }
