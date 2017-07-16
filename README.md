@@ -1,7 +1,7 @@
 # WatchKitPromises
 
 
-## PromiseKit Promises for WatchKit
+## PromiseKit extension for WatchKit
 
 
 ## Installation
@@ -24,7 +24,7 @@ import WatchKitPromises
 
 override func awake(withContext context: Any?) {
     super.awake(withContext: context)
-    
+
     self.animate(duration: duration, animations: {
         self.startButton?.setAlpha(0)
         self.swipeLabel?.setAlpha(0)
