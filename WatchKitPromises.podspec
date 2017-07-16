@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "WatchKitPromises"
-  s.version          = "0.2.0"
+  s.version          = "0.2.1"
   s.summary          = "A library to add PromiseKit support to WatchKit."
   s.description      = <<-DESC
                        Adds support for WatchKit animations to WatchKit
